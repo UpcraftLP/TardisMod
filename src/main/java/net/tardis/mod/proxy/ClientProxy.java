@@ -14,10 +14,12 @@ import net.minecraftforge.client.event.RenderPlayerEvent;
 import net.minecraftforge.common.DimensionManager;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.relauncher.Side;
 import net.tardis.mod.client.EnumClothes;
-import net.tardis.mod.client.models.ModelFirstCane;
-import net.tardis.mod.client.models.ModelKey01;
+import net.tardis.mod.client.models.items.ModelFirstCane;
+import net.tardis.mod.client.models.items.ModelKey01;
 import net.tardis.mod.client.models.clothing.ModelVortexM;
 import net.tardis.mod.client.overlays.OverlayHandler;
 import net.tardis.mod.client.renderers.RenderCorridor;
@@ -45,6 +47,7 @@ import net.tardis.mod.client.renderers.items.RenderTEISRItem;
 import net.tardis.mod.client.renderers.items.RendererItemDemat;
 import net.tardis.mod.client.renderers.items.RendererItemTardis;
 import net.tardis.mod.client.renderers.items.RendererKey;
+import net.tardis.mod.client.renderers.layers.RenderLayerClothing;
 import net.tardis.mod.client.renderers.layers.RenderLayerVortexM;
 import net.tardis.mod.client.renderers.tiles.RenderFoodMachine;
 import net.tardis.mod.client.renderers.tiles.RenderJsonHelper;
@@ -90,7 +93,9 @@ import net.tardis.mod.common.tileentity.TileEntityUmbrellaStand;
 import net.tardis.mod.common.tileentity.exteriors.TileEntityDoor01;
 import net.tardis.mod.common.tileentity.exteriors.TileEntityDoor03;
 import net.tardis.mod.config.TardisConfig;
+import org.lwjgl.Sys;
 
+@Mod.EventBusSubscriber(Side.CLIENT)
 public class ClientProxy extends ServerProxy {
 	
 	public static HashMap<Integer, Class<? extends IRenderHandler>> skyRenderers = new HashMap<>();
@@ -185,6 +190,7 @@ public class ClientProxy extends ServerProxy {
         if (!layerPlayers.contains(e.getEntityPlayer())) {
             RenderPlayer render = e.getRenderer();
             addRenderLayer(new RenderLayerVortexM(render));
+            addRenderLayer(new RenderLayerClothing(render));
             layerPlayers.add(e.getEntityPlayer());
         }
     }

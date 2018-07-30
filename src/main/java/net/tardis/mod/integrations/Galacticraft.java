@@ -14,7 +14,7 @@ public class Galacticraft {
 	}
 	
 	public static class EventHandler {
-		
+
 		@SubscribeEvent
 		public void stopSuffication(GCCoreOxygenSuffocationEvent.Pre event) {
 			Iterable<ItemStack> armor = event.getEntityLiving().getArmorInventoryList();
@@ -29,7 +29,8 @@ public class Galacticraft {
 			}
 			if(event.getEntityLiving() instanceof IDontSufficate) {
 				event.setCanceled(true);
+				}
 			}
-		}
+
 	}
 }

@@ -21,6 +21,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
 
+@SuppressWarnings("unchecked")
 public class EntityCybermanInvasion extends EntityCyberman implements IRangedAttackMob
 {
 
@@ -40,6 +41,7 @@ public class EntityCybermanInvasion extends EntityCyberman implements IRangedAtt
         this.applyEntityAI();
     }
 
+    @SuppressWarnings("unchecked")
     protected void applyEntityAI()
     {
         this.tasks.addTask(6, new EntityAIMoveThroughVillage(this, 1.0D, false));

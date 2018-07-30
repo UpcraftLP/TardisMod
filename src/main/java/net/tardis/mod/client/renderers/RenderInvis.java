@@ -7,6 +7,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.util.ResourceLocation;
 import net.tardis.mod.common.items.TItems;
 
+@SuppressWarnings("unchecked")
 public class RenderInvis extends Render {
 	
 	public RenderInvis() {

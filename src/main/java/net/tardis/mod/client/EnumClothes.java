@@ -7,6 +7,7 @@ import net.minecraft.util.ResourceLocation;
 import net.tardis.mod.Tardis;
 import net.tardis.mod.client.models.clothing.ModelFourthHat;
 import net.tardis.mod.client.models.clothing.ModelThirteenCoat;
+import net.tardis.mod.client.renderers.layers.IClothing;
 
 public enum EnumClothes {
 
@@ -14,7 +15,7 @@ public enum EnumClothes {
     HAT_VOID_SPECS("void_specs"),
     CHEST_13TH_COAT("thirteen_coat");
 
-    private final ModelBiped model;
+    private final IClothing model;
     private final ResourceLocation texture;
 
     EnumClothes(String texName) {
@@ -22,7 +23,7 @@ public enum EnumClothes {
         this.texture = new ResourceLocation(Tardis.MODID, "textures/clothing/" + texName + ".png");
     }
 
-    public ModelBiped getModel() {
+    public IClothing getModel() {
         return ClothingHandler.CLOTHING.get(this);
     }
 
@@ -32,7 +33,7 @@ public enum EnumClothes {
 
 
     public static class ClothingHandler {
-        public static HashMap<EnumClothes, ModelBiped> CLOTHING = new HashMap<>();
+        public static HashMap<EnumClothes,IClothing> CLOTHING = new HashMap<>();
 
         public static void init() {
             CLOTHING.put(EnumClothes.CHEST_13TH_COAT, new ModelThirteenCoat());

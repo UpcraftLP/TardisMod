@@ -14,6 +14,7 @@ import net.minecraft.entity.passive.EntityVillager;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
 
+@SuppressWarnings("unchecked")
 public class EntityCybermanTomb extends EntityCyberman {
 
 	public EntityCybermanTomb(World worldIn) {

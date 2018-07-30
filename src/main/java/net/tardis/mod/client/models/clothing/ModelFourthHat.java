@@ -4,10 +4,12 @@ import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.ResourceLocation;
 import net.tardis.mod.Tardis;
+import net.tardis.mod.client.renderers.layers.IClothing;
 
-public class ModelFourthHat extends ModelBiped
+public class ModelFourthHat extends ModelBiped implements IClothing
 {
   //fields
 	public static final ResourceLocation TEXTURE = new ResourceLocation(Tardis.MODID, "textures/clothing/fourth_hat.png");
@@ -191,7 +193,7 @@ public class ModelFourthHat extends ModelBiped
   }
   
   @Override
-  public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5)
+  public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float scale)
   {
     GlStateManager.pushMatrix();
     GlStateManager.scale(1.1, 1.1, 1.1);
@@ -200,25 +202,25 @@ public class ModelFourthHat extends ModelBiped
     }
     GlStateManager.rotate(f3, 0, 1, 0);
     GlStateManager.rotate(f4, 1, 0, 0);
-    HatBase1.render(f5);
-    HatBase2.render(f5);
-    HatBase3.render(f5);
-    HatBase4.render(f5);
-    HatBase5.render(f5);
-    HatBase6.render(f5);
-    HatMiddle1.render(f5);
-    HatMiddle2.render(f5);
-    HatMiddle3.render(f5);
-    HatMiddle4.render(f5);
-    HatMiddle5.render(f5);
-    HatStrap1.render(f5);
-    HatStrap2.render(f5);
-    HatBow1.render(f5);
-    HatBow2.render(f5);
-    HatTop1.render(f5);
-    HatTop2.render(f5);
-    HatTop3.render(f5);
-    HatTop4.render(f5);
+    HatBase1.render(scale);
+    HatBase2.render(scale);
+    HatBase3.render(scale);
+    HatBase4.render(scale);
+    HatBase5.render(scale);
+    HatBase6.render(scale);
+    HatMiddle1.render(scale);
+    HatMiddle2.render(scale);
+    HatMiddle3.render(scale);
+    HatMiddle4.render(scale);
+    HatMiddle5.render(scale);
+    HatStrap1.render(scale);
+    HatStrap2.render(scale);
+    HatBow1.render(scale);
+    HatBow2.render(scale);
+    HatTop1.render(scale);
+    HatTop2.render(scale);
+    HatTop3.render(scale);
+    HatTop4.render(scale);
     GlStateManager.popMatrix();
   }
   
@@ -230,4 +232,33 @@ public class ModelFourthHat extends ModelBiped
   }
 
 
+  @Override
+  public void renderHead(EntityLivingBase living, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
+      render(living, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
+  }
+
+  @Override
+  public void renderChest(EntityLivingBase living, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
+
+  }
+
+  @Override
+  public void renderRightArm(EntityLivingBase living, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
+
+  }
+
+  @Override
+  public void renderLeftArm(EntityLivingBase living, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
+
+  }
+
+  @Override
+  public void renderRightLeg(EntityLivingBase living, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
+
+  }
+
+  @Override
+  public void renderLeftLeg(EntityLivingBase living, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
+
+  }
 }

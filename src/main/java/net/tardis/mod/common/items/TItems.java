@@ -5,11 +5,13 @@ import java.util.List;
 
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemArmor;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.Mod;
 import net.tardis.mod.Tardis;
 import net.tardis.mod.client.EnumClothes;
 import net.tardis.mod.common.items.clothing.ItemBowTie;
+import net.tardis.mod.common.items.clothing.ItemClothingbase;
 import net.tardis.mod.common.items.clothing.ItemFez;
 import net.tardis.mod.common.items.clothing.ItemSpaceSuit;
 import net.tardis.mod.common.items.components.ArtronCapacitor;
@@ -81,7 +83,7 @@ public class TItems {
 		ray_gun = new ItemRayGun();
 		register(ray_gun, "ray_gun");
 
-		void_specs = new ItemHat(EnumClothes.HAT_VOID_SPECS);
+		void_specs = new ItemClothingbase(ItemArmor.ArmorMaterial.LEATHER, EnumClothes.HAT_VOID_SPECS, EntityEquipmentSlot.HEAD);
 		register(void_specs, "void_specs");
 		
 		fez = new ItemFez();
@@ -120,10 +122,10 @@ public class TItems {
 		first_cane = new ItemCane();
 		register(first_cane, "first_cane");
 
-		fourth_hat = new ItemHat(EnumClothes.HAT_FOURTH_DOC);
+		fourth_hat = new ItemClothingbase(ItemArmor.ArmorMaterial.LEATHER, EnumClothes.HAT_FOURTH_DOC, EntityEquipmentSlot.HEAD);
 		register(fourth_hat, "fourth_hat");
 
-		thirteen_coat = new ItemClothing(EnumClothes.CHEST_13TH_COAT);
+		thirteen_coat = new ItemClothingbase(ItemArmor.ArmorMaterial.LEATHER, EnumClothes.CHEST_13TH_COAT, EntityEquipmentSlot.HEAD);
 		register(thirteen_coat, "thirteen_coat");
 		
 		symbiotic_nuclei = new ItemSymbioticNuclei();
@@ -144,7 +146,7 @@ public class TItems {
 		demat_circut = new DematerializationCircut();
 		register(demat_circut, "demat_circut");
 
-		sonicShades = new ItemHat(EnumClothes.HAT_VOID_SPECS); //using void specs until I add the model
+		sonicShades = new ItemClothingbase(ItemArmor.ArmorMaterial.LEATHER, EnumClothes.HAT_VOID_SPECS, EntityEquipmentSlot.HEAD); //using void specs until I add the model
 		register(sonicShades, "sonic_shades");
 	}
 	

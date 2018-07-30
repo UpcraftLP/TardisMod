@@ -6,7 +6,7 @@ import net.minecraft.client.renderer.tileentity.TileEntityItemStackRenderer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.tardis.mod.Tardis;
-import net.tardis.mod.client.models.ModelPen;
+import net.tardis.mod.client.models.items.ModelPen;
 
 public class RenderItemSonicPen extends TileEntityItemStackRenderer {
 

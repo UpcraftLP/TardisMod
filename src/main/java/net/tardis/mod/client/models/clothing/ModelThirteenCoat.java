@@ -4,11 +4,13 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.ResourceLocation;
 import net.tardis.mod.Tardis;
 import net.tardis.mod.client.models.BodyPartHook;
+import net.tardis.mod.client.renderers.layers.IClothing;
 
-public class ModelThirteenCoat extends ModelBiped
+public class ModelThirteenCoat extends ModelBiped implements IClothing
 {
 	
 	public static final ResourceLocation TEXTURE = new ResourceLocation(Tardis.MODID, "textures/clothing/thirteen_coat.png");
@@ -138,4 +140,33 @@ public class ModelThirteenCoat extends ModelBiped
 
   }
 
+    @Override
+    public void renderHead(EntityLivingBase living, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
+
+    }
+
+    @Override
+    public void renderChest(EntityLivingBase living, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
+
+    }
+
+    @Override
+    public void renderRightArm(EntityLivingBase living, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
+
+    }
+
+    @Override
+    public void renderLeftArm(EntityLivingBase living, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
+
+    }
+
+    @Override
+    public void renderRightLeg(EntityLivingBase living, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
+
+    }
+
+    @Override
+    public void renderLeftLeg(EntityLivingBase living, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
+
+    }
 }
