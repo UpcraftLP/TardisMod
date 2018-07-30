@@ -5,6 +5,7 @@ import javax.annotation.Nullable;
 import org.lwjgl.opengl.GL11;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
@@ -13,6 +14,7 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.tardis.mod.client.renderers.controls.RenderDoor;
+import net.tardis.mod.client.util.FBO;
 import net.tardis.mod.client.worldshell.IContainsWorldShell;
 import net.tardis.mod.client.worldshell.RenderWorldShell;
 import net.tardis.mod.proxy.ClientProxy;
@@ -21,9 +23,13 @@ import net.tardis.mod.proxy.ClientProxy;
 public class RenderHelper {
 	
 	Minecraft mc;
+	ScaledResolution res;
+	static FBO fbo;
 	
 	public RenderHelper() {
 		mc = Minecraft.getMinecraft();
+		res = new ScaledResolution(Minecraft.getMinecraft());
+		fbo = new FBO(res.getScaledWidth(), res.getScaledHeight(), true);
 	}
 	
 	public static void renderPortal(RenderWorldShell renderShell, IContainsWorldShell te, float partialTicks, float rotation, @Nullable Vec3d offset, @Nullable Vec3d size) {
@@ -50,9 +56,12 @@ public class RenderHelper {
 				GlStateManager.pushMatrix();
 				GlStateManager.rotate(180,0,1,0);
 				GlStateManager.rotate(rotation, 0, 1, 0);
+				fbo.initialize();
+				fbo.bindFrameBuffer();
 				mc.entityRenderer.disableLightmap();
 				renderShell.doRender(te, offset.x, offset.y, offset.z, 0, partialTicks);
 				mc.entityRenderer.enableLightmap();
+				fbo.unbindFrameBuffer();
 				GlStateManager.popMatrix();
 			}
 			catch(Exception e) {}

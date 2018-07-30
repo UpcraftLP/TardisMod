@@ -37,7 +37,7 @@ public class RenderWorldShell {
 			
 			GlStateManager.pushMatrix();
 			worldBoti.setShell(container.getWorldShell());
-			if(entity instanceof TileEntityDoor) GlStateManager.depthFunc(GL11.GL_ALWAYS);
+			//if(entity instanceof TileEntityDoor) GlStateManager.depthFunc(GL11.GL_ALWAYS);
 			
 			bb.begin(GL11.GL_QUADS, DefaultVertexFormats.BLOCK);
 
