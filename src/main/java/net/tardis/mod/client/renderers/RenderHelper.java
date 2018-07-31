@@ -30,6 +30,7 @@ public class RenderHelper {
 		mc = Minecraft.getMinecraft();
 		res = new ScaledResolution(Minecraft.getMinecraft());
 		fbo = new FBO(res.getScaledWidth(), res.getScaledHeight(), true);
+		fbo.initialize();
 	}
 	
 	public static void renderPortal(RenderWorldShell renderShell, IContainsWorldShell te, float partialTicks, float rotation, @Nullable Vec3d offset, @Nullable Vec3d size) {
@@ -56,7 +57,6 @@ public class RenderHelper {
 				GlStateManager.pushMatrix();
 				GlStateManager.rotate(180,0,1,0);
 				GlStateManager.rotate(rotation, 0, 1, 0);
-				fbo.initialize();
 				fbo.bindFrameBuffer();
 				mc.entityRenderer.disableLightmap();
 				renderShell.doRender(te, offset.x, offset.y, offset.z, 0, partialTicks);
