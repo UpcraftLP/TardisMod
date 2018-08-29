@@ -63,6 +63,11 @@ public class CapabilityFlightMode implements IFlightMode {
         //TODO Tell the client about updates to a players capabilities
     }
 
+    @Override
+    public void update() {
+
+    }
+
 
     public static class FlightProvider implements ICapabilitySerializable<NBTTagCompound> {
 

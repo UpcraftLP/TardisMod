@@ -2,7 +2,6 @@ package net.tardis.mod.common.entities.controls;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.text.TextComponentTranslation;
@@ -14,7 +13,6 @@ import net.tardis.mod.common.strings.TStrings;
 import net.tardis.mod.common.tileentity.TileEntityTardis;
 import net.tardis.mod.common.tileentity.consoles.TileEntityTardis01;
 import net.tardis.mod.common.tileentity.consoles.TileEntityTardis02;
-import net.tardis.mod.util.TardisTeleporter;
 import net.tardis.mod.util.helpers.Helper;
 
 public class ControlFlight extends EntityControl {
@@ -50,11 +48,13 @@ public class ControlFlight extends EntityControl {
 				eT.setPosition(wPos.getX(), wPos.getY() + 1, wPos.getZ());
 				eT.setState(Block.getStateId(tardis.getTopBlock()));
 				ws.spawnEntity(eT);
-				player.setInvisible(true);
+
+				eT.setPilot(player.getUniqueID().toString());
+
 				ForgeChunkManager.unforceChunk(tardis.tardisLocTicket, world.getChunkFromBlockCoords(getConsolePos()).getPos());
-				ws.getMinecraftServer().getPlayerList().transferPlayerToDimension((EntityPlayerMP) player, tardis.dimension, new TardisTeleporter((WorldServer) world));
-				player.setLocationAndAngles(wPos.getX(), wPos.getY(), wPos.getZ(), 0, 0);
-				ws.addScheduledTask(() -> player.startRiding(eT, true));
+				//ws.getMinecraftServer().getPlayerList().transferPlayerToDimension((EntityPlayerMP) player, tardis.dimension, new TardisTeleporter((WorldServer) world));
+				//player.setLocationAndAngles(wPos.getX(), wPos.getY(), wPos.getZ(), 0, 0);
+
 			} else
 				player.sendStatusMessage(new TextComponentTranslation(TStrings.TARDIS_IN_FLIGHT), true);
 		}

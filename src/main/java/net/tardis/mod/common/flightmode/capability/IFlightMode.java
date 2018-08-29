@@ -17,4 +17,6 @@ public interface IFlightMode {
     void setTardisEntityID(int tardisEntityID);
 
     void sync();
+
+    void update();
 }
