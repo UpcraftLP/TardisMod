@@ -37,9 +37,13 @@ import net.tardis.mod.util.helpers.Helper;
 public class EntityTardis extends EntityFlying {
 	
 	public static final DataParameter<NBTTagCompound> STATE = EntityDataManager.createKey(EntityTardis.class, DataSerializers.COMPOUND_TAG);
+
+    public static final DataParameter<String> UUID = EntityDataManager.createKey(EntityTardis.class, DataSerializers.STRING);
+
+
 	public BlockPos consolePos = BlockPos.ORIGIN;
 	public int renderRotation = 0;
-	int ticks;
+    private int ticks = 0, ticksOnGround = 0;
 	
 	public EntityTardis(World worldIn) {
 		super(worldIn);
@@ -54,20 +58,31 @@ public class EntityTardis extends EntityFlying {
 	protected void entityInit() {
 		super.entityInit();
 		this.dataManager.register(STATE, new NBTTagCompound());
+        this.getDataManager().register(UUID, "I DONT HAVE ONE KILL ME");
 	}
 	
 	@Override
 	public void writeEntityToNBT(NBTTagCompound tag) {
 		tag.setLong("tPos", consolePos.toLong());
 		tag.setInteger("state", this.getState());
+        tag.setString("uuid", getPilot());
 		super.writeEntityToNBT(tag);
 	}
-	
+
+    public String getPilot() {
+        return getDataManager().get(UUID);
+    }
+
+    public void setPilot(String uuid) {
+        getDataManager().set(UUID, uuid);
+    }
+
 	@Override
 	public void readEntityFromNBT(NBTTagCompound tag) {
 		super.readEntityFromNBT(tag);
 		consolePos = BlockPos.fromLong(tag.getLong("tPos"));
 		this.setState(tag.getInteger("state"));
+        setPilot(tag.getString("uuid"));
 	}
 	
 	public BlockPos getConsolePos() {
@@ -92,6 +107,10 @@ public class EntityTardis extends EntityFlying {
 	@Override
 	public void onUpdate() {
 		super.onUpdate();
+
+        if (onGround) {
+            ticksOnGround++;
+        }
 
 		if (world.isRemote) {
 			if (!onGround) {
