@@ -5,7 +5,10 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ICapabilitySerializable;
+import net.tardis.mod.Tardis;
+import net.tardis.mod.common.dimensions.TDimensions;
 import net.tardis.mod.common.flightmode.capability.IFlightMode;
+import net.tardis.mod.packets.MessageUpdateFlight;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -14,7 +17,7 @@ public class CapabilityFlightMode implements IFlightMode {
 
     private EntityPlayer player;
     private boolean isInFlight;
-    private int tardisEntityID;
+    private int tardisEntityID, worldID;
 
 
     public CapabilityFlightMode() {
@@ -54,18 +57,31 @@ public class CapabilityFlightMode implements IFlightMode {
     }
 
     @Override
+    public int getWorldID() {
+        return worldID;
+    }
+
+    @Override
+    public void setWorldID(int worldID) {
+        this.worldID = worldID;
+    }
+
+    @Override
     public void setTardisEntityID(int tardisEntityID) {
         this.tardisEntityID = tardisEntityID;
     }
 
     @Override
     public void sync() {
-        //TODO Tell the client about updates to a players capabilities
+        Tardis.NETWORK.sendToAll(new MessageUpdateFlight(player, writeNBT()));
     }
 
     @Override
-    public void update() {
-
+    public void update(EntityPlayer player) {
+        IFlightMode capa = FlightModeHandler.get(player);
+        if (capa.isInFlight() && player.dimension == TDimensions.TARDIS_ID) {
+            capa.setInFlight(false); //To make sure we reset the player when they return
+        }
     }
 
 

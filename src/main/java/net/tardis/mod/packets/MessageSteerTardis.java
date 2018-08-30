@@ -60,6 +60,22 @@ public class MessageSteerTardis implements IMessage {
                 if (direction.equals(EnumSteerTardis.UP)) {
                     tardis.motionY = 1;
                 }
+
+                if (direction.equals(EnumSteerTardis.FORWARD)) {
+                    tardis.motionX = 1;
+                }
+
+                if (direction.equals(EnumSteerTardis.LEFT)) {
+                    tardis.motionZ = -1;
+                }
+
+                if (direction.equals(EnumSteerTardis.RIGHT)) {
+                    tardis.motionZ = 1;
+                }
+
+                if (direction.equals(EnumSteerTardis.BACK)) {
+                    tardis.motionX = -1;
+                }
             }
 
             return null;

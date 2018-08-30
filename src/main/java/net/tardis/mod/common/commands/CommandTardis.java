@@ -1,10 +1,5 @@
 package net.tardis.mod.common.commands;
 
-import java.util.Collections;
-import java.util.List;
-
-import javax.annotation.Nullable;
-
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
@@ -22,6 +17,10 @@ import net.tardis.mod.common.strings.TStrings;
 import net.tardis.mod.common.tileentity.TileEntityTardis;
 import net.tardis.mod.common.tileentity.TileEntityTardisCoral;
 import net.tardis.mod.util.helpers.TardisHelper;
+
+import javax.annotation.Nullable;
+import java.util.Collections;
+import java.util.List;
 
 public class CommandTardis extends CommandBase {
     /**
@@ -42,63 +41,15 @@ public class CommandTardis extends CommandBase {
         return "/tardis [grow | transfer | tp | summon | remove]";
     }
 
-    /**
-     * Callback for when the command is executed
-     *
-     * @param server
-     * @param sender
-     * @param args
-     */
-    @Override
-    public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
-
-        if (args.length == 0) {
-            throw new CommandException("You need to include a argument of the following: " + this.getUsage(sender));
-        }
-
-        if (sender instanceof EntityPlayerMP) {
-            EntityPlayerMP player = getCommandSenderAsPlayer(sender);
-            
-            String alias = args[0];
-
-            if (args.length == 1){
-                if (alias.equals("grow")) {
-                    handleGrow(player);
-                }
-
-                if (alias.equals("interior")) {
-                    if (PermissionAPI.hasPermission(player, TStrings.Permissions.TP_IN_TARDIS)) {
-                        handleTeleport(player);
-                    } else {
-                        throw new CommandException("You do not have permission to run this command.");
-                    }
-                }
-            } else if (args.length == 2){
-                if (alias.equals("transfer")) {
-                    handlerOwner(player, args[1]);
-                }
-
-                if (alias.equals("summon")) {
-                    if (PermissionAPI.hasPermission(player, TStrings.Permissions.SUMMON_TARDIS)) {
-                        handleSummon(player, args[1]);
-                    } else {
-                        throw new CommandException("You do not have permission to run this command.");
-                    }
-                }
-
-                if (alias.equals("remove")) {
-                    if (PermissionAPI.hasPermission(player, TStrings.Permissions.REMOVE_TARDIS)) {
-                        handleRemove(player, args[1]);
-                    } else {
-                        throw new CommandException("You do not have permission to run this command.");
-                    }
-                }
-            }
-            else {
-                throw new CommandException("/tardis [summon | remove | transfer] <username>");
-            }
+    //Handles teleporting the user to their interior
+    public static void handleTeleport(EntityPlayerMP player) {
+        MinecraftServer server = player.getServer();
+        if (TardisHelper.hasTardis(player.getUniqueID())) {
+            BlockPos pos = TardisHelper.getTardis(player.getUniqueID());
+            player.dismountRidingEntity();
+            ((TileEntityTardis) server.getWorld(TDimensions.TARDIS_ID).getTileEntity(pos)).enterTARDIS(player);
         } else {
-            throw new CommandException("You are not a player. You must run these commands in game.");
+            player.sendMessage(new TextComponentTranslation(TStrings.Commands.NO_TARDIS_OWNED));
         }
     }
 
@@ -165,15 +116,64 @@ public class CommandTardis extends CommandBase {
         }
     }
 
-    //Handles teleporting the user to their interior
-    private void handleTeleport(EntityPlayerMP player) {
-        MinecraftServer server = player.getServer();
-        if (TardisHelper.hasTardis(player.getUniqueID())) {
-            BlockPos pos = TardisHelper.getTardis(player.getUniqueID());
-            player.dismountRidingEntity();
-            ((TileEntityTardis) server.getWorld(TDimensions.TARDIS_ID).getTileEntity(pos)).enterTARDIS(player);
+    /**
+     * Callback for when the command is executed
+     *
+     * @param server
+     * @param sender
+     * @param args
+     */
+    @Override
+    public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
+
+
+        if (args.length == 0) {
+            throw new CommandException("You need to include a argument of the following: " + this.getUsage(sender));
+        }
+
+        if (sender instanceof EntityPlayerMP) {
+            EntityPlayerMP player = getCommandSenderAsPlayer(sender);
+
+
+            String alias = args[0];
+
+            if (args.length == 1) {
+                if (alias.equals("grow")) {
+                    handleGrow(player);
+                }
+
+                if (alias.equals("interior")) {
+                    if (PermissionAPI.hasPermission(player, TStrings.Permissions.TP_IN_TARDIS)) {
+                        handleTeleport(player);
+                    } else {
+                        throw new CommandException("You do not have permission to run this command.");
+                    }
+                }
+            } else if (args.length == 2) {
+                if (alias.equals("transfer")) {
+                    handlerOwner(player, args[1]);
+                }
+
+                if (alias.equals("summon")) {
+                    if (PermissionAPI.hasPermission(player, TStrings.Permissions.SUMMON_TARDIS)) {
+                        handleSummon(player, args[1]);
+                    } else {
+                        throw new CommandException("You do not have permission to run this command.");
+                    }
+                }
+
+                if (alias.equals("remove")) {
+                    if (PermissionAPI.hasPermission(player, TStrings.Permissions.REMOVE_TARDIS)) {
+                        handleRemove(player, args[1]);
+                    } else {
+                        throw new CommandException("You do not have permission to run this command.");
+                    }
+                }
+            } else {
+                throw new CommandException("/tardis [summon | remove | transfer] <username>");
+            }
         } else {
-            player.sendMessage(new TextComponentTranslation(TStrings.Commands.NO_TARDIS_OWNED));
+            throw new CommandException("You are not a player. You must run these commands in game.");
         }
     }
 

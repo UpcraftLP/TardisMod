@@ -1,5 +1,6 @@
 package net.tardis.mod.common.flightmode.capability;
 
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 
 public interface IFlightMode {
@@ -14,9 +15,13 @@ public interface IFlightMode {
 
     int getTardisEntityID();
 
+    int getWorldID();
+
+    void setWorldID(int worldID);
+
     void setTardisEntityID(int tardisEntityID);
 
     void sync();
 
-    void update();
+    void update(EntityPlayer player);
 }

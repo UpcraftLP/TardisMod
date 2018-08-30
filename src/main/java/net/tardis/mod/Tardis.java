@@ -171,6 +171,8 @@ public class Tardis {
 		NETWORK.registerMessage(MessageSpawnItem.Handler.class, MessageSpawnItem.class, 8, Side.SERVER);
 		NETWORK.registerMessage(MessageDamageSystem.Helper.class, MessageDamageSystem.class, 9, Side.SERVER);
 		NETWORK.registerMessage(MessageSteerTardis.Handler.class, MessageSteerTardis.class, 10, Side.SERVER);
+        NETWORK.registerMessage(MessageUpdateFlight.Handler.class, MessageUpdateFlight.class, 11, Side.CLIENT);
+
 
 
 		ScrewdriverHandler.init();

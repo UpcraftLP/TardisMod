@@ -6,6 +6,8 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.PositionedSoundRecord;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityFlying;
+import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.init.Blocks;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.datasync.DataParameter;
@@ -15,6 +17,7 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.tardis.mod.client.EnumExterior;
@@ -97,10 +100,18 @@ public class EntityTardis extends EntityFlying {
 	public void onUpdate() {
 		super.onUpdate();
 
-        if (onGround) {
+		if (world.isRemote) return;
+
+		if (!(world.getBlockState(getPosition().down()).getBlock() == Blocks.AIR)) {
             ticksOnGround++;
 		} else {
 			ticksOnGround = 0;
+		}
+
+		EntityPlayerMP player = FMLCommonHandler.instance().getMinecraftServerInstance().getPlayerList().getPlayerByUUID(java.util.UUID.fromString(getPilot()));
+
+		if (player != null) {
+			setRotation(player.rotationYaw, player.rotationPitch);
 		}
 
 		if (world.isRemote) {
